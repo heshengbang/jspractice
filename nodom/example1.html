@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<!--该div作为模块容器，内部所有内容将作为模块的模版进行编译-->
+		<div class='mod1'>
+			我的爱好是：
+			<ul class='mod1'>
+				<li x-repeat='hobbies'>{{name}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/*js代码放在html元素后的<script>元素中，或放在window的onload事件中，或作为js文件用script元素的src引入*/
+		DD.createModule({
+			/*指定模块名*/
+			name:'module1',      		
+			/*指定渲染到哪个div,该项为css选择器*/
+			el:'.mod1',
+			/*为模块指定数据*/
+			data:{
+					hobbies:[
+					{name:'编码'},
+					{name:'健身'},
+					{name:'旅游'}
+				]
+			}
+		});
+	</script>
+</html>

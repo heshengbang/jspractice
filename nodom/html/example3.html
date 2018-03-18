@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/nodom-full.js" ></script>
+	</head>
+	<body>
+		<div class='mod1'>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			/*给模块设置名字，方便在收到消息时针对不同模块做不同操作*/
+			name:'module1',     
+			el:'.mod1',
+			templateUrl:'../resources/viewpath/communication.html',
+			data:{smsg:'',rmsg:''},
+			/*消息接收钩子*/
+			onReceive:function(module,data){
+				this.data.rmsg = '来自' + module + '的消息：' + data.smsg;
+			},
+			methods:{
+				/*发送消息方法，由send按钮的e-click指定*/
+				sendMsg:function(){
+					/*broadcast为模块方法，用来向外部发送消息*/
+					this.broadcast(this.data);
+				}
+			},
+			modules:[{
+				name:'module2',
+				el:'.code41',
+				data:{smsg:'',rmsg:''},
+				onReceive:function(module,data){
+					this.data.rmsg = '来自' + module + '的消息：' + data.smsg;
+				},
+				methods:{
+					sendMsg:function(){
+						this.broadcast(this.data);
+					}
+				}	
+			},{
+				name:'module3',
+				el:'.code42',
+				data:{smsg:'',rmsg:''},
+				onReceive:function(module,data){
+					this.data.rmsg = '来自' + module + '的消息：' + data.smsg;
+				},
+				methods:{
+					sendMsg:function(){
+						this.broadcast(this.data);
+					}
+				}
+			}]
+		});
+	</script>
+</html>

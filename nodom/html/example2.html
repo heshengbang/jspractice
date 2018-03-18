@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<!--该例子通过判断给定数据的age是否>=18来显示不同内容-->
+		<div class='mod1'>
+			<div x-if='age>=18'>
+				成年人: {{name}}
+			</div>
+			<div x-else>
+				未成年人: {{name}}某
+			</div>
+		</div>
+
+		<br/>
+
+		<div class='mod2'>
+		</div>
+
+		<br/>
+
+		<div class='mod3'>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		DD.createModule({
+		    name:'module1', /*给定模块名，如果不给定，系统会自动生成一个唯一名*/
+			el:'.mod1',  	/*设定模块容器的css选择器，会从body元素中查找第一个符合的元素作为模块的容器*/
+			data:{       	/*直接在创建模块时给定数据对象作为模块的数据*/
+				age:10,
+				name:'yang'
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.mod2',
+			/*请修改dataUrl和templateUrl*/
+			dataUrl:'../resources/datapath/dataname.json',
+			templateUrl:'../resources/viewpath/viewname.html'
+		});
+	</script>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.mod3',
+			/*用template模版串作为模版，模块中都不使用数据*/
+			template:'<div style="border:1px solid #999">这是父模块<div class="code31"></div><div class="code32"></div></div>',
+			modules:[
+			/*子模块1，也是采用模版串*/
+			{
+				template:'<div style="border:2px solid #900;margin:5px 0;">这是内部的子模块1</div>',
+				el:'.code31',
+			},
+			/*子模块2，也是采用模版串*/
+			{
+				template:'<div style="border:2px solid #009">这是内部的子模块2</div>',
+				el:'.code32'
+			}]
+		});
+	</script>
+
+</html>
