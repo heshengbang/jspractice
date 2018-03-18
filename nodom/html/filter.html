@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<div class='result code1'>
+			<!--注意日期格式两边的单引号-->
+		    <div>当前日期是: {{date1|date:'yyyy/MM/dd'}}</div>
+		    <div>当前时间是: {{date1|date:'HH:mm:ss'}}</div>
+		    <div>当前日期和时间是: {{date1|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+		</div>
+
+		<br >
+
+		<div class='code2'>
+			<!--默认货币为¥-->
+		    <div>商品价格是: {{price|currency}}</div>
+		    <div>商品价格是: {{price|currency:$}}</div>
+		</div>
+
+		<br >
+
+		<div class='code3'>
+			<div>保留3位小数: {{progress|number:3}}</div>
+		    <div>保留0位小数: {{progress|number:0}}</div>
+		</div>
+
+		<br >
+
+		<div class='code4'>
+			<div>转换为小写字母:{{name|tolowercase}}</div>
+		    <div>转换为大写字母:{{name|touppercase}}</div>
+		</div>
+
+		<br >
+
+		<div class='code5'>
+			升序排序
+			<ul>
+				<li x-repeat='rows|orderBy:name'>{{name}}'s address is {{addr}}</li>
+			</ul>
+			降序排序
+		    <ul>
+				<li x-repeat='rows|orderBy:name:desc'>{{name}}'s address is {{addr}}</li>
+			</ul>
+		</div>
+
+		<br >
+
+		<div class='code6'>
+			<!--select结合repeat指令使用-->
+			<div class='imp'>odd用法</div>
+			<ul>
+				<li x-repeat='rows|select:odd'>{{name}}'s address is {{addr}}</li>
+			</ul>
+			even用法
+			<ul>
+				<li x-repeat='rows|select:even'>{{name}}'s address is {{addr}}</li>
+			</ul>	
+			range用法
+			<ul>
+				<li x-repeat='rows|select:range:1:3'>{{name}}'s address is {{addr}}</li>
+			</ul>
+			index用法
+			<ul>
+				<li x-repeat='rows|select:index:1:3'>{{name}}'s address is {{addr}}</li>
+			</ul>
+			v用法
+			<ul>
+				<li x-repeat="rows|select:yang">{{name}}'s address is {{addr}}</li>
+			</ul>
+			{prop:v}用法，这里的参数必须为正确的json串，比如yang是字符串，需在两边添加引号
+			<ul>
+				<li x-repeat="rows|select:{addr:'yang'}">{{name}}'s address is {{addr}}</li>
+			</ul>
+			func用法
+			<ul>
+				<li x-repeat='rows|select:func:selectArr'>{{name}}'s address is {{addr}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',  	
+			data:{
+				date1:(new Date()).getTime()
+			}
+		});
+		DD.createModule({
+			el:'.code2',
+			data:{
+				price:15.323
+			}
+		});
+		DD.createModule({
+			el:'.code3',
+			data:{
+				progress:35.89882
+			}
+		});
+		DD.createModule({
+			el:'.code4',
+			data:{
+				name:'Hello World'
+			}
+		});
+
+		DD.createModule({
+			el:'.code5',
+			data:{
+				"rows":[
+					{name:'yang',addr:'chengdu'},
+					{name:'zhangs',addr:'mianyang'},
+					{name:'NoDom',addr:'luoyang'},
+					{name:'hallo',addr:'beijing'}
+				]
+			}
+		});
+		DD.createModule({
+			el:'.code6',
+			data: {
+				rows:[
+					{name:'yang',addr:'chengdu'},
+					{name:'zhangs',addr:'mianyang'},
+					{name:'NoDom',addr:'luoyang'},
+					{name:'hallo',addr:'beijing'}
+				]
+			},
+			methods:{
+				selectArr:function(arr){
+					var a = [];
+					//过滤出name为yang的数组元素
+					arr.forEach(function(item){
+						if(item.name==='yang'){
+							a.push(item);
+						}
+					});
+					return a;
+				}
+			}
+		});
+	</script>
+</html>

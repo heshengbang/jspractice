@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<div class='result code1'>
+		    <div>(3+4)/5的结果是: {{(3+4)/5}}</div>
+		    <div>商品名: {{name}}</div>
+		    <div>商品价格：{{price}}</div>
+		    <div>商品折扣价: {{price*discount}}</div>
+		    <!--引入过滤器，把计算结果转换为货币-->
+		    <div>商品折扣价(精确到分): {{(price*discount)|currency:¥}}</div>
+		    <div>生产日期是: {{genDate|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+		    <div>是否是低价商品: {{price<30}}</div>
+		    <div>是否是低价商品并且还有折扣: {{price<30 && discount !== undefined}}</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',
+			data:{
+				price:20,
+				discount:0.855,   /*折扣*/
+				name:'测试商品',
+				genDate:(new Date()).getTime()   	/*生产日期*/
+			}
+		});
+	</script>
+</html>
