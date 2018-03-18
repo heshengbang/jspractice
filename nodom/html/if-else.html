@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-if</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<div class='result code2'>
+		    <div class='colorimp'>如果年龄>=18，显示成年人，否则显示未成年人</div>
+		    <br >
+		    <div x-repeat='person'>
+		    	<div x-if='age>=18'>
+		        	{{name}}，年龄{{age}}，成年人
+			    </div>
+			    <div x-else>
+			        {{name}}，年龄{{age}}，未成年人
+			    </div>
+		    </div>
+		</div>
+
+		<br>
+
+		<div class='result code3'>
+		    <div class='colorimp'>根据不同分数显示不同等级，<60不及格，60-69及格，70-79中等，80-89良好，
+		    >=90优秀</div>
+		    <div>成绩：{{grade}}</div>
+		    等级：<span x-if='grade<60'>
+		        不及格
+		    </span>
+		    <span x-else>
+		        <span x-if='grade>=60 && grade<70'>
+		            及格
+		        </span>
+		        <span x-else>
+		            <span x-if='grade>=70 && grade<80'>
+		                中等
+		            </span>
+		            <span x-else>
+		                <span x-if='grade>=80 && grade<90'>
+		                    良好
+		                </span>
+		                <span x-else>
+		                    优秀
+		                </span>
+		            </span>
+		        </span>
+		    </span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code2',
+			data:{
+				person:[
+				{
+					name:'鲁智深',
+					age:35
+				},{
+					name:'宋江',
+					age:40
+				},{
+					name:'红孩儿',
+					age:6
+				},{
+					name:'霍去病',
+					age:28
+				}]
+			}
+		});
+		DD.createModule({
+			el:'.code3',
+			data:{
+				grade:75
+			}
+		});
+	</script>
+</html>

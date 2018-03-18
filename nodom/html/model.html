@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-model</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<div class='result code1'>
+		    <!--使用多层model定义-->
+			用户：
+		    <div x-model='user'>
+		        <div x-model='name'>
+		            <div>姓: {{firstName}}</div>
+		            <div>名: {{secondName}}</div>
+		        </div>
+		    </div>
+
+		    <!--model使用多层数据-->
+		    <div x-model='user.dinner.foods'>
+		        今晚菜品安排：
+		        <div>
+		            <div>第一道菜是: {{food1.name}}</div>
+		            <div>第二道菜是: {{food2.name}}</div>
+		            <div>第三道菜是: {{food3.name}}</div>
+		            <div>第四道菜是: {{food4.name}}</div>
+		        </div>
+		        <br/>
+		        <div>菜单金额：{{(food1.price + food2.price + food3.price + food4.price)|currency}}</div>
+		        消费金额：
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',
+			data:{
+				user:{
+					name:{
+						firstName:'yang',
+						secondName:'lei'
+					},
+					dinner:{
+						foods:{
+							food1:{name:'酸菜鱼',price:45},
+							food2:{name:'麻婆豆腐',price:12},
+							food3:{name:'回锅肉',price:22},
+							food4:{name:'番茄蛋汤',price:15}
+						}
+					}
+				}
+			}
+		});
+	</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+		<style type="text/css">
+			.colorimp2{
+				color: red;
+			}
+			.bold{
+				font:italic bold 20px Georgia, serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='result code1'>
+		    <div class='colorimp'>商品价格>20添加colorimp2 class，discount<0.8添加bold class</div>
+		    <ul>
+		    	<!--colorimp2和bold需要在css文件或style元素中定义-->
+		        <li x-repeat='commodities' x-class="{colorimp2:'price>20',bold:'discount<0.8'}">
+		            {{name}} 的价格是{{price}},折扣是{{discount}}。
+		        </li>
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',
+			data:{
+				commodities:[
+					{name:'酷炫夹克',price:200,discount:0.6},
+					{name:'运动棉袜',price:8,discount:0.9},
+					{name:'钥匙扣',price:15,discount:0.7}
+				]
+			}
+		});
+	</script>
+</html>

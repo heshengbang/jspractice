@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-repeat</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/NoDom.min.js" ></script>
+	</head>
+	<body>
+		<div class='result code1'>    
+		    <div class='colorimp'>基本使用</div>
+		    今晚菜品：
+		    <div x-repeat='foods'>
+		        菜名:{{name}} 价格:{{price}}
+		    </div>
+		    <div class='colorimp'>增加索引号的使用</div>
+		    今晚菜品：
+		    <div x-repeat='foods'>
+		        第{{$index+1}}道菜是:{{name}},价格是{{price}}
+		    </div>
+		    <div class='colorimp'>过滤器的使用-显示数组序号为奇数的数据</div>
+		    今晚菜品：
+		    <div x-repeat='foods|select:odd'>
+		        第{{$index+1}}道菜是:{{name}},价格是{{price}}
+		    </div>
+		    <div class='colorimp'>过滤器的使用-数组按价格升序排序</div>
+		    今晚菜品：
+		    <div x-repeat='foods|orderBy:price'>
+		        第{{$index+1}}道菜是:{{name}},价格是{{price}}
+		    </div>
+		    <div class='colorimp'>过滤器的使用-func</div>
+		    今晚菜品：
+		    <div x-repeat='foods|select:func:lowerThanForty'>
+		        第{{$index+1}}道菜是:{{name}},价格是{{price}}
+		    </div>
+		    <div class='colorimp'>if-else</div>
+		    今晚菜品：
+		    <div x-repeat='foods'>
+		        <div x-if='price<40'>
+		        	配菜是:{{name}},价格是{{price}}
+		        </div>
+		        <div x-else>
+		        	主打菜是:{{name}},价格是{{price}}
+		        </div>
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',  
+			//数据被4个repeat重用
+			data:{
+				foods:[
+					{name:'酸菜鱼',price:45},
+					{name:'麻婆豆腐',price:12},
+					{name:'回锅肉',price:22},
+					{name:'番茄蛋汤',price:15}
+				]
+			},
+			methods:{
+				lowerThanForty:function(arr){
+					var a = [];
+					//过滤出name为yang的数组元素
+					arr.forEach(function(item){
+						if(item.price < 25){
+							a.push(item);
+						}
+					});
+					return a;
+				}
+			}
+		});
+	</script>
+</html>
