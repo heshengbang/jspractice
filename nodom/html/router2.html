@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/nodom-full.js" ></script>
+		<style type="text/css">
+			.colorimp{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='result code1'>
+			<div style='border-bottom: 1px solid #999'>
+				<!--用repeat指令生成路由元素-->
+				<a x-repeat='routes' x-route='{{path}}' x-class="{colorimp:'active'}" active='active' style='margin:10px'>{{title}}</a>
+				&nbsp;
+			</div>
+			<div x-router></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/*创建模块*/
+		DD.createModule({
+			name:'r_mod4',
+			/*请把{ {中间的空格去掉*/
+			template:"<div>这是{{$route.data.page}}页,编号是{{$route.data.id}}</div>"
+		});
+
+		DD.createRoute({
+			path:'/router2/:page/:id',
+			module:'r_mod4'
+		});
+
+		DD.createModule({
+		    el: ".code1",
+		    /*涉及到多个module，这儿必须设置root，表明该module是根module*/
+		    root:true,
+		    data:{
+				routes:[
+					{title:'首页',path:'/router2/home/1',active:true},
+					{title:'列表',path:'/router2/list/2',active:false},
+					{title:'数据',path:'/router2/data/3',active:false}
+				]
+			}
+		});
+	</script>
+</html>

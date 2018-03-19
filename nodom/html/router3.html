@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/nodom-full.js" ></script>
+		<style type="text/css">
+			.colorimp{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='result code1'>
+			<div style='border-bottom: 1px solid #999'>
+				<a x-route='/r1/r2'>加载子路由r2</a>
+			</div>
+			<div x-router></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/*创建模块*/
+		DD.createModule([
+			{
+				name:'r_pmod3',
+				/*修改yourfile到你指定的view*/
+				templateUrl:'../resources/viewpath/viewname.html',
+			},{
+				name:'r_mod5',
+				template:"<div class='code2'>路由r1加载的模块<div x-router='/r2'></div></div>"
+			},{
+				name:'r_mod6',
+				template:'路由r2加载的模块'
+			}
+		]);
+
+		/*创建路由*/
+		DD.createRoute(
+			[{
+				path:'/r1',
+				module:'r_mod5',
+				routes:
+					[{
+						path:'/r2',
+						module:'r_mod6'
+					}]
+			}]
+		);
+
+		DD.createModule({
+		    el: ".code1",
+		    /*涉及到多个module，这儿必须设置root，表明该module是根module*/
+		    root:true
+		});
+	</script>
+</html>

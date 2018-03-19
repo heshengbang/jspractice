@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/nodom-full.js" ></script>
+		<style type="text/css">
+			.colorimp{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='result code1'>
+		    <div class='colorimp'>点击后查看控制台输出内容</div>
+		    <button e-click='clickdiv'>
+		        点击我试试
+		    </button>
+		    <div class='colorimp'>点击下面的商品，查看控制台输出内容。</div>
+		    <ul>
+		        <!--这儿做了事件代理，事件会注册到ul元素上-->
+		        <li x-repeat='datas'  e-click='clickli:delg'>
+		            {{name}} 的价格是{{price}},折扣是{{discount}}。
+		        </li>
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		DD.createModule({
+			el:'.code1',
+			data:{
+				datas:[
+					{name:'酷炫夹克',price:200,discount:0.6},
+					{name:'运动棉袜',price:8,discount:0.9},
+					{name:'钥匙扣',price:15,discount:0.7}
+				]
+			},
+			methods:{
+				clickdiv:function(e,data,view){
+					console.log(e,data,view);
+				},
+				clickli:function(e,data,view){
+					console.log(e,data,view);
+				}
+			}
+		});
+	</script>
+</html>

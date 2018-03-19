@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>NoDom-数据驱动渲染MVVM框架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="../js/nodomjs/nodom-full.js" ></script>
+		<style type="text/css">
+			.colorimp{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='result code1'>
+			<div style='border-bottom: 1px solid #999'>
+				<!--设置home数据项为true，加载时会默认跳转到该home路由指定模块-->
+				<a x-route='/nodom/html/home'  x-class="{colorimp:'home'}" active='home'>首页</a>&nbsp;
+				<a x-route='/nodom/html/list'  x-class="{colorimp:'list'}" active='list'>列表</a>&nbsp;
+				<a x-route='/nodom/html/data'  x-class="{colorimp:'data'}" active='data'>数据</a>
+			</div>
+			<div x-router></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+				/*创建模块*/
+		DD.createModule([
+			{
+				name:'r_mod1',
+				/*请把{ {中间的空格去掉*/
+				template:"<div>这是首页,路径是{{$route.path}}</div>"
+			},{
+				name:'r_mod2',
+				/*请把{ {中间的空格去掉*/
+				template:"<div>这是商品列表页,路径是{{$route.path}}</div>"
+			},{
+				name:'r_mod3',
+				/*请把{ {中间的空格去掉*/
+				template:"<div>这是数据页,路径是{{$route.path}}</div>"
+			}
+		]);
+
+
+		/*创建路由*/
+		DD.createRoute([
+			{
+				path:'/nodom/html/home',
+				module:'r_mod1'
+			},{
+				path:'/nodom/html/list',
+				module:'r_mod2'
+			},{
+				path:'/nodom/html/data',
+				module:'r_mod3'
+			}
+		]);
+
+		DD.createModule({
+		    el: ".code1",
+		    /*涉及到多个module，这儿必须设置root，表明该module是根module*/
+		    root:true,
+		    data:{
+				home:true,
+				list:false,
+				data:false
+			}
+		});
+	</script>
+</html>
